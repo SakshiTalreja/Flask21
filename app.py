@@ -8,11 +8,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-class Mytodo(db.Model):
+class Mybook(db.Model):
     Sno = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     date = db.Column(db.String(15), nullable=False)
+    completed = db.Column(db.String(50), nullable=False)
 
     def __repr__(self) -> str:
         return f"{self.Sno} - {self.title}"
@@ -23,24 +24,25 @@ def hello_world():
     if request.method == 'POST':
         title = request.form.get('title')
         desc = request.form.get('desc')
-        entry = Mytodo(title=title, description=desc, date=datetime.now())
+        completed = request.form.get('completed')
+        entry = Mybook(title=title, description=desc, date=datetime.now(), completed=completed)
         db.session.add(entry)
         db.session.commit()
-    return render_template('index.html', allTodo=Mytodo.query.all())
+    return render_template('index.html', allBook=Mybook.query.all())
     # return 'Hello, World!'
 
 
 @app.route('/show')
 def products():
-    allTodos = Mytodo.query.all()
-    print(allTodos)
+    allBook = Mybook.query.all()
+    print(allBook)
     return 'This is products page'
 
 
 @app.route('/delete/<int:Sno>')
 def delete(Sno):
-    todo = Mytodo.query.filter_by(Sno=Sno).first()
-    db.session.delete(todo)
+    book = Mybook.query.filter_by(Sno=Sno).first()
+    db.session.delete(book)
     db.session.commit()
     return redirect("/")
 
@@ -50,18 +52,20 @@ def update(Sno):
     if request.method == 'POST':
         title = request.form['title']
         desc = request.form['desc']
-        todo = Mytodo.query.filter_by(Sno=Sno).first()
-        todo.title = title
-        todo.description = desc
-        db.session.add(todo)
+        completed = request.form['completed']
+        book = Mybook.query.filter_by(Sno=Sno).first()
+        book.title = title
+        book.description = desc
+        book.completed = completed
+        db.session.add(book)
         db.session.commit()
         return redirect("/")
-    todo = Mytodo.query.filter_by(Sno=Sno).first()
-    return render_template('update.html', todo=todo)
+    book = Mybook.query.filter_by(Sno=Sno).first()
+    return render_template('update.html', book=book)
 
 
 if __name__ == "__main__":
     # production
     # http_server = WSGIServer(('', 5000), app)
     # http_server.serve_forever()
-    app.run(debug=True, port=5000)  # development server
+    app.run()  # development server

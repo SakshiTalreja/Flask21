@@ -4,17 +4,28 @@
 
     <!-- Optional JavaScript; choose one of the two! -->
     <div class='container'>
-   <form action="/update/{{todo.Sno}}" method="post">
+   <form action="/update/{{book.Sno}}" method="post">
   <div class="mb-3">
       <h3>Update Todo</h3>
     <label for="title" class="form-label">Title</label>
-    <input type="text" class="form-control" id="title" name="title" value="{{todo.title}}">
+    <input type="text" class="form-control" id="title" name="title" value="{{book.title}}">
   </div>
   <div class="mb-3">
     <label for="desc" class="form-label">Description</label>
-    <input type="text" class="form-control" id="desc" name="desc" value="{{todo.description}}">
+    <input type="text" class="form-control" id="desc" name="desc" value="{{book.description}}">
   </div>
-  <button type="submit" class="btn btn-dark">Update</button>
+
+       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+       <div><label for="desc" class="form-label">Completed?</label></div> &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="radio" name="completed" id="flexRadioDefault1" class="form-check-input" autocomplete="off" value="Yes" checked>
+  <label for="flexRadioDefault1" class="form-check-label">Yes</label>&nbsp;&nbsp;
+
+  <input type="radio" name="completed" id="flexRadioDefault2" value="No" autocomplete="off" class="form-check-input">
+  <label for="flexRadioDefault2" class="form-check-label"> No</label>
+
+</div>
+
+  <div><button type="submit" class="btn btn-dark">Update</button></div>
    </form>
     </div><br>
 

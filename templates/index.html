@@ -6,7 +6,7 @@
     <div class='container'>
    <form action="/" method="post">
   <div class="mb-3">
-      <h3>Add Todo Here</h3>
+      <h3>Add Books Here</h3>
     <label for="title" class="form-label">Title</label>
     <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
   </div>
@@ -14,37 +14,51 @@
     <label for="desc" class="form-label">Description</label>
     <input type="text" class="form-control" id="desc" name="desc">
   </div>
-  <button type="submit" class="btn btn-dark">Submit</button>
+
+     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+       <div><label for="desc" class="form-label">Completed?</label></div> &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="radio" name="completed" id="flexRadioDefault1" class="form-check-input" autocomplete="off" value="Yes" checked>
+  <label for="flexRadioDefault1" class="form-check-label">Yes</label>&nbsp;&nbsp;
+
+  <input type="radio" name="completed" id="flexRadioDefault2" value="No" autocomplete="off" class="form-check-input">
+  <label for="flexRadioDefault2" class="form-check-label"> No</label>
+
+</div>
+
+     <div> <button type="submit" class="btn btn-dark">Submit</button></div>
    </form>
     </div><br>
 
     <div class="container">
-      <h2>Your Todo</h2>
-  {% if allTodo|length==0 %}
+      <h2>Your Books</h2>
+  {% if allBook|length==0 %}
       <div class="alert alert-dark" role="alert">
-         No Records Found. Add your Todo now!
+         No Records Found. Add your Book now!
       </div>
     {% else %}
       <table class="table">
   <thead>
     <tr>
       <th scope="col">SNo</th>
-      <th scope="col">Title</th>
+      <th scope="col">Books</th>
       <th scope="col">Description</th>
       <th scope="col">Date/Time</th>
       <th scope="col">Actions</th>
+       <th scope="col">Completed</th>
     </tr>
   </thead>
   <tbody>
-  {% for Mytodo in allTodo %}
+  {% for Mybook in allBook %}
     <tr>
       <th scope="row">{{loop.index}}</th>
-      <td>{{Mytodo.title}}</td>
-      <td>{{Mytodo.description}}</td>
-      <td>{{Mytodo.date}}</td>
-      <td><a href="/delete/{{Mytodo.Sno}}" type="button" class="btn btn-outline-dark btn-sm mx-2">Delete</a>
-        <a href="/update/{{Mytodo.Sno}}" type="button" class="btn btn-outline-dark btn-sm mx-2">Update</a></td>
+      <td>{{Mybook.title}}</td>
+      <td>{{Mybook.description}}</td>
+      <td>{{Mybook.date}}</td>
+      <td><a href="/delete/{{Mybook.Sno}}" type="button" class="btn btn-outline-dark btn-sm mx-2">Delete</a>
+        <a href="/update/{{Mybook.Sno}}" type="button" class="btn btn-outline-dark btn-sm mx-2">Update</a></td>
       </td>
+        <td>{{Mybook.completed}}</td>
+        
     </tr>
 
   {% endfor %}
